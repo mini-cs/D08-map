@@ -48,6 +48,14 @@ def address_to_coord(address):
     return 위도, 경도
 
 
+def address_forms(address):
+    """주소 → 같은 곳의 [도로명 주소, 지번 주소] (있는 것만). 못 찾으면 빈 목록."""
+    docs = _kakao_get(API["address"], {"query": address})
+    if not docs:
+        return []
+    return [a["address_name"] for a in (docs[0].get("road_address"), docs[0].get("address")) if a]
+
+
 def coord_to_address(위도, 경도):
     """(위도, 경도) → 도로명 주소, 도로명이 없으면 지번 주소. 못 찾으면 None."""
     docs = _kakao_get(API["coord2address"], {"x": 경도, "y": 위도})  # 요청은 x=경도, y=위도

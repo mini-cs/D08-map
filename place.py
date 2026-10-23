@@ -11,7 +11,7 @@ API = {
 
 
 def search_place(query, n=5):
-    """검색어로 장소를 찾아 [{"이름", "주소", "위도", "경도"}, ...] 를 최대 n개 돌려준다.
+    """검색어로 장소를 찾아 [{"이름", "주소", "지번주소", "위도", "경도"}, ...] 를 최대 n개 돌려준다.
     키·설정·연결 문제는 '⛔'로 시작하는 RuntimeError, 결과가 없으면 빈 목록."""
     load_dotenv()
     key = os.getenv("KAKAO_REST_API_KEY")
@@ -43,6 +43,7 @@ def search_place(query, n=5):
         places.append({
             "이름": d["place_name"],
             "주소": d.get("road_address_name") or d["address_name"],
+            "지번주소": d["address_name"],
             "위도": 위도,
             "경도": 경도,
         })

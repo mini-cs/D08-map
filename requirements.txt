@@ -1,2 +1,5 @@
 requests
 python-dotenv
+streamlit>=1.66
+folium
+pandas
